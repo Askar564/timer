@@ -37,6 +37,7 @@ body {
     text-align: center;
     max-width: 440px;
     width: 92vw;
+    min-width: 260px;
     border: none;
     transition: box-shadow 0.2s;
     /* УБРАТЬ opacity и animation отсюда! */
@@ -51,7 +52,7 @@ body {
     width: 120%;
     height: 120%;
     transform: translate(-50%, -50%);
-    border-radius: 40px;
+    border-radius: 32px;
     z-index: -1;
     pointer-events: none;
     background: conic-gradient(
@@ -69,6 +70,37 @@ body {
 @keyframes neonRotate {
     0% { transform: translate(-50%, -50%) rotate(0deg);}
     100% { transform: translate(-50%, -50%) rotate(360deg);}
+}
+
+.timer-container::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 32px;
+    z-index: 2;
+    pointer-events: none;
+    border: 2px solid transparent;
+    background: conic-gradient(
+        from 0deg,
+        #ffe066 0deg 90deg,
+        #f7a8d7 90deg 180deg,
+        #b8aaff 180deg 270deg,
+        #a0f0ff 270deg 360deg
+    );
+    background-origin: border-box;
+    background-clip: border-box;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0.35;
+    filter: blur(1.5px);
+    animation: borderRun 3.5s linear infinite;
+}
+
+@keyframes borderRun {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
 }
 
 .timer-container h1 {
@@ -479,7 +511,9 @@ body {
 @media (max-width: 900px) {
     .timer-container {
         padding: 24px 4vw 18px 4vw;
-        max-width: 99vw;
+        max-width: 350px;
+        min-width: 200px;
+        width: 98vw;
     }
     #timer {
         gap: 16px 6px;
@@ -527,7 +561,9 @@ body {
 @media (max-width: 600px) {
     .timer-container {
         padding: 12px 2vw 10px 2vw;
-        max-width: 100vw;
+        max-width: 270px;
+        min-width: 160px;
+        width: 99vw;
         border-radius: 18px;
     }
     #timer {
@@ -586,37 +622,6 @@ body {
         /* уменьшаем визуальные эффекты на маленьких экранах */
         opacity: 0.6;
     }
-}
-
-/* --- Анимированная бегущая неоновая рамка вокруг таймера --- */
-.timer-container::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 36px;
-    z-index: 2;
-    pointer-events: none;
-    border: 4px solid transparent;
-    background: conic-gradient(
-        from 0deg,
-        #fff700 0deg 90deg,
-        #f357a8 90deg 180deg,
-        #7b2ff2 180deg 270deg,
-        #00eaff 270deg 360deg
-    );
-    background-origin: border-box;
-    background-clip: border-box;
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    opacity: 0.7;
-    animation: borderRun 3.5s linear infinite;
-}
-
-@keyframes borderRun {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
 }
 
 /* --- Плавающие неоновые линии для глубины --- */
